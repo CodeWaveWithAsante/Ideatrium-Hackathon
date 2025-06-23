@@ -165,7 +165,7 @@ export class ServiceWorkerManager {
 
       return true;
     } catch (error) {
-      console.error('❌ Service Worker registration failed:', error);
+      console.log('❌ Service Worker registration failed:', error);
       return false;
     }
   }
