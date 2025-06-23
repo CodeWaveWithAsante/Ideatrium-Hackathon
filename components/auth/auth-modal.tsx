@@ -261,18 +261,7 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
  <DialogContent
-  className="
-    sm:max-w-[500px]
-    xl:max-w-[600px]
-    2xl:max-w-[700px]
-    max-h-[95vh]      /* never taller than 95vh */
-    md:max-h-[95vh]   /* explicitly on medium+ */
-    flex flex-col     /* stack header + body vertically */
-    p-0
-    overflow-hidden   /* hide any overflow outside the flex container */
-    bg-white bg-opacity-95 dark:bg-slate-900 dark:bg-opacity-95
-    backdrop-blur-xl
-    border-white border-opacity-20 dark:border-slate-700 dark:border-opacity-50
+  className="sm:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[700px] max-h-[95vh] md:max-h-[95vh] flex flex-col p-0 overflow-hidden bg-white bg-opacity-95 dark:bg-slate-900 dark:bg-opacity-95 backdrop-blur-xl border-white border-opacity-20 dark:border-slate-700 dark:border-opacity-50
   "
 >
         {/* Header with gradient background */}
