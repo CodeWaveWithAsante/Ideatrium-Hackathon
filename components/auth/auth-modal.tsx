@@ -290,10 +290,7 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
           </DialogHeader>
         </div>
 
-        <div 
-          
-           className="px-8 pb-4 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700
-    "
+        <div className="px-8 pb-4 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700"
           >  
           <style jsx>{`
             div::-webkit-scrollbar {
