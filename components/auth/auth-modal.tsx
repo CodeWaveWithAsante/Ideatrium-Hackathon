@@ -229,12 +229,7 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
             </DialogHeader>
           </div>
           
-          <div className="flex-1 overflow-y-auto p-8" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-          <style jsx>{`
-            div::-webkit-scrollbar {
-              display: none;
-            }
-          `}</style>
+          <div className="flex-1 overflow-y-auto p-8">
             <div className="text-center space-y-4">
               <AlertCircle className="h-12 w-12 mx-auto text-orange-500" />
               <h3 className="text-lg font-semibold">Supabase Configuration Missing</h3>
@@ -260,8 +255,7 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
- <DialogContent className="sm:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[700px] max-h-[95vh] md:max-h-[95vh] flex flex-col p-0 overflow-hidden bg-white bg-opacity-95 dark:bg-slate-900 dark:bg-opacity-95 backdrop-blur-xl border-white border-opacity-20 dark:border-slate-700 dark:border-opacity-50 "
->
+      <DialogContent className="sm:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[700px] max-h-[95vh] md:max-h-[95vh] flex flex-col p-0 overflow-hidden bg-white bg-opacity-95 dark:bg-slate-900 dark:bg-opacity-95 backdrop-blur-xl border-white border-opacity-20 dark:border-slate-700 dark:border-opacity-50">
         {/* Header with gradient background */}
         <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 p-8 text-white">
           <div className="absolute inset-0 bg-black bg-opacity-10"></div>
@@ -290,8 +284,7 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
           </DialogHeader>
         </div>
 
-        <div className="px-8 pb-4 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700"
-          >  
+        <div className="px-8 pb-4 flex-1 overflow-y-auto">
           <style jsx>{`
             div::-webkit-scrollbar {
               display: none;

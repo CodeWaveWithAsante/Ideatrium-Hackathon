@@ -79,7 +79,7 @@ export const supabaseStorage = {
     const { data, error } = await supabase
       .from('ideas')
       .select('*')
-      .eq('user_id', user.id!)
+      .eq('user_id', user.id)
       .order('created_at', { ascending: false });
 
     if (error) {
