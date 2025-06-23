@@ -294,12 +294,7 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
 
         <div 
           
-           className="
-      px-8 pb-4
-      flex-1           /* take all remaining space */
-      overflow-y-auto  /* enable vertical scrolling */
-      /* hide native scrollbar if you like */
-      scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700
+           className="px-8 pb-4 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700
     "
           >  
           <style jsx>{`
