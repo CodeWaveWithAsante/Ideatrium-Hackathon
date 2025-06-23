@@ -223,7 +223,7 @@ export class OfflineStorageManager {
       const request = indexedDB.open(this.dbName, this.dbVersion);
 
       request.onerror = () => {
-        console.error('❌ IndexedDB failed to open');
+        console.log('❌ IndexedDB failed to open');
         reject(false);
       };
 
