@@ -1,0 +1,23 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background glow -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" />
+    </filter>
+  </defs>
+
+  <!-- Blurred gradient background -->
+  <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#bgGradient)" filter="url(#blur)" opacity="0.2" />
+
+  <!-- Foreground rounded box -->
+  <rect x="12" y="12" width="40" height="40" rx="16" fill="url(#bgGradient)" />
+
+  <!-- Lightbulb icon (adjusted to fit inside the foreground box) -->
+  <g transform="translate(0, -2)">
+    <path d="M32 20a10 10 0 00-6 18v2a2 2 0 002 2h8a2 2 0 002-2v-2a10 10 0 00-6-18zm0 30a3 3 0 003-3h-6a3 3 0 003 3z" fill="#ffffff"/>
+  </g>
+</svg>
