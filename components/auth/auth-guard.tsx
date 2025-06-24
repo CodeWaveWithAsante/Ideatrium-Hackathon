@@ -59,7 +59,7 @@ export function AuthGuard({ children, fallback }: AuthGuardProps) {
               <div className="relative group">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
                 <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 p-6 rounded-3xl group-hover:scale-105 transition-transform duration-300">
-                  <Lightbulb className="h-4 lg:h-12 w-10 lg:w-12 text-white" />
+                  <Lightbulb className="h-8 lg:h-12 w-8 lg:w-12 text-white" />
                 </div>
               </div>
               
