@@ -12,7 +12,7 @@ export interface Idea {
   tags: string[]; // Tag IDs
   impact: number; // 1-5 scale
   effort: number; // 1-5 scale
-  quadrant: 'q1' | 'q2' | 'q3' | 'q4' | null; // Eisenhower Matrix quadrants
+  quadrant: 'q1' | 'q2' | 'q3' | 'q4'; // Eisenhower Matrix quadrants
   createdAt: Date;
   updatedAt: Date;
   status: 'active' | 'archived';
