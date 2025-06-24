@@ -110,7 +110,7 @@ export type Database = {
       }
       tags: {
         Row: {
-          category: Database["public"]["Enums"]["tag_category"] | null
+          category: Database["public"]["Enums"]["tag_category"]
           color: string
           created_at: string | null
           id: string
@@ -118,7 +118,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          category?: Database["public"]["Enums"]["tag_category"] | null
+          category?: Database["public"]["Enums"]["tag_category"]
           color: string
           created_at?: string | null
           id?: string
