@@ -45,8 +45,8 @@ const transformTaskFromDB = (row: TaskRow, subtasks: SubTask[] = []): Task => ({
   actualHours: row.actual_hours || undefined,
   tags: row.tags || [],
   subtasks,
-  createdAt: new Date(row.created_at),
-  updatedAt: new Date(row.updated_at),
+  createdAt: new Date(row.created_at as string),
+  updatedAt: new Date(row.updated_at as string),
   completedAt: row.completed_at ? new Date(row.completed_at) : undefined,
 });
 
