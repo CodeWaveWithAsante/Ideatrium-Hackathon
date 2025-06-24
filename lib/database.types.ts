@@ -42,7 +42,7 @@ export type Database = {
           id: string
           impact: number | null
           quadrant: Database["public"]["Enums"]["idea_quadrant"]
-          status: Database["public"]["Enums"]["idea_status"] | null
+          status: Database["public"]["Enums"]["idea_status"]
           tags: string[] | null
           title: string
           updated_at: string | null
