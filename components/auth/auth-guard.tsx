@@ -54,7 +54,7 @@ export function AuthGuard({ children, fallback }: AuthGuardProps) {
         </div>
         <div className="w-full max-w-6xl py-16 2xl:py-20">
           {/* Hero Section */}
-          <div className="text-center mb-16 animate-in fade-in duration-1000">
+          <div className="md:text-center mb-16 animate-in fade-in duration-1000">
             <div className="flex items-center justify-center gap-4 mb-8 animate-in slide-in-from-top duration-700">
               <div className="relative group">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
