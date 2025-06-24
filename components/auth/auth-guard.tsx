@@ -77,7 +77,7 @@ export function AuthGuard({ children, fallback }: AuthGuardProps) {
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
                 Your personal idea management platform
               </h2>
-              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
+              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left md:text-center">
                 Capture brilliant ideas, prioritize with the Eisenhower Matrix, and transform concepts into actionable tasks. 
                 Powered by AI insights and designed for creative minds.
               </p>
