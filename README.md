@@ -3,6 +3,7 @@
 Transform your thoughts into actionable ideas with AI-powered insights and smart prioritization using the Eisenhower Matrix.
 
 ![Ideatrium Dashboard](https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=600&fit=crop&crop=center)
+![Ideatrium Dashboard]](./public/idea l1.png)
 
 ## ✨ Features
 
