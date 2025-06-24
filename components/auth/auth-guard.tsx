@@ -165,7 +165,7 @@ export function AuthGuard({ children, fallback }: AuthGuardProps) {
           <div className="animate-in slide-in-from-bottom duration-700 delay-700">
             <Card className="relative bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-white/20 dark:border-slate-700/50 overflow-hidden group hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-indigo-500/5 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-indigo-500/10 transition-all duration-300"></div>
-              <CardContent className="relative p-12 text-center">
+              <CardContent className="relative p-6 md:p-12 text-center">
                 <div className="max-w-2xl mx-auto space-y-6">
                   <div className="flex items-center justify-center gap-2 mb-4">
                     <Sparkles className="h-6 w-6 text-primary animate-pulse" />
