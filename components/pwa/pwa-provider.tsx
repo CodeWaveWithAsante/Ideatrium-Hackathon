@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { serviceWorkerManager, offlineStorageManager } from '@/lib/pwa';
 import { InstallPrompt } from './install-prompt';
 import { UpdatePrompt } from './update-prompt';
 import { OfflineIndicator } from './offline-indicator';
+umport {SpinnerLoader} from "@/components/spinner-loader"
 
 interface PWAProviderProps {
   children: React.ReactNode;
@@ -62,10 +63,15 @@ export function PWAProvider({ children }: PWAProviderProps) {
 
   return (
     <>
+          <Suspense fallback={<SpinnerLoader
+                            title="Loading...."
+                            message="Please wait while we get yours space ready."
+                            />}>
       {children}
       <InstallPrompt />
       <UpdatePrompt />
       <OfflineIndicator />
+          </Suspense>
     </>
   );
 }
