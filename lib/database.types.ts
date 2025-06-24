@@ -145,8 +145,8 @@ export type Database = {
           estimated_hours: number | null
           id: string
           idea_id: string
-          priority: Database["public"]["Enums"]["task_priority"] | null
-          status: Database["public"]["Enums"]["task_status"] | null
+          priority: Database["public"]["Enums"]["task_priority"] 
+          status: Database["public"]["Enums"]["task_status"] 
           tags: string[] | null
           title: string
           updated_at: string | null
