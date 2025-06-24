@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect,Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,6 +21,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import Image from 'next/image';
+import {SpinnerLoader} from "@/components/spinner-loader"
 
 const resetPasswordSchema = z.object({
   password: z
@@ -37,8 +38,8 @@ const resetPasswordSchema = z.object({
 
 type ResetPasswordForm = z.infer<typeof resetPasswordSchema>;
 
-export default function ResetPassword() {
-  const router = useRouter();
+const ResetPasswordForm = ()=> {
+   const router = useRouter();
   const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
   const [status, setStatus] = useState<'loading' | 'ready' | 'success' | 'error'>('loading');
@@ -272,3 +273,18 @@ export default function ResetPassword() {
     </div>
   );
 }
+
+
+export default function ResetPassword() {
+
+  return(
+      <Suspense fallback={<SpinnerLoader
+                            title="Loading...."
+                            message="Please wait while we get yours space ready."
+                            />}>
+      <ResetPasswordForm />
+    </Suspense>
+  )
+}
+
+
