@@ -5,7 +5,7 @@ import { serviceWorkerManager, offlineStorageManager } from '@/lib/pwa';
 import { InstallPrompt } from './install-prompt';
 import { UpdatePrompt } from './update-prompt';
 import { OfflineIndicator } from './offline-indicator';
-umport {SpinnerLoader} from "@/components/spinner-loader"
+import {SpinnerLoader} from "@/components/spinner-loader"
 
 interface PWAProviderProps {
   children: React.ReactNode;
