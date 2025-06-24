@@ -40,7 +40,7 @@ type ResetPasswordForm = z.infer<typeof resetPasswordSchema>;
 
 const ResetPasswordForm = ()=> {
    const router = useRouter();
-  const searchParams = useSearchParams();
+ 
   const [showPassword, setShowPassword] = useState(false);
   const [status, setStatus] = useState<'loading' | 'ready' | 'success' | 'error'>('loading');
   const [isSubmitting, setIsSubmitting] = useState(false);
