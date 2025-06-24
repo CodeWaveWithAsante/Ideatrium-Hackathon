@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useEffect, Suspense } from 'react';
-import { serviceWorkerManager, offlineStorageManager } from '@/lib/pwa';
-import { InstallPrompt } from './install-prompt';
-import { UpdatePrompt } from './update-prompt';
-import { OfflineIndicator } from './offline-indicator';
-import {SpinnerLoader} from "@/components/spinner-loader"
+import { useEffect, Suspense } from "react";
+import { serviceWorkerManager, offlineStorageManager } from "@/lib/pwa";
+import { InstallPrompt } from "./install-prompt";
+import { UpdatePrompt } from "./update-prompt";
+import { OfflineIndicator } from "./offline-indicator";
+import { SpinnerLoader } from "@/components/spinner-loader";
 
 interface PWAProviderProps {
   children: React.ReactNode;
@@ -19,42 +19,41 @@ export function PWAProvider({ children }: PWAProviderProps) {
         // Register service worker
         const swRegistered = await serviceWorkerManager.register();
         if (swRegistered) {
-          console.log('✅ PWA: Service Worker registered');
+          console.log("✅ PWA: Service Worker registered");
         }
 
         // Initialize offline storage
         const storageInitialized = await offlineStorageManager.init();
         if (storageInitialized) {
-          console.log('✅ PWA: Offline storage initialized');
+          console.log("✅ PWA: Offline storage initialized");
         }
 
         // Handle URL shortcuts
         const urlParams = new URLSearchParams(window.location.search);
-        const action = urlParams.get('action');
-        const view = urlParams.get('view');
+        const action = urlParams.get("action");
+        const view = urlParams.get("view");
 
-        if (action === 'new-idea') {
+        if (action === "new-idea") {
           // Trigger new idea modal
           setTimeout(() => {
-            const event = new CustomEvent('pwa-shortcut', { 
-              detail: { action: 'new-idea' } 
+            const event = new CustomEvent("pwa-shortcut", {
+              detail: { action: "new-idea" },
             });
             window.dispatchEvent(event);
           }, 1000);
         }
 
-        if (view === 'matrix') {
+        if (view === "matrix") {
           // Switch to matrix view
           setTimeout(() => {
-            const event = new CustomEvent('pwa-shortcut', { 
-              detail: { action: 'matrix-view' } 
+            const event = new CustomEvent("pwa-shortcut", {
+              detail: { action: "matrix-view" },
             });
             window.dispatchEvent(event);
           }, 1000);
         }
-
       } catch (error) {
-        console.error('❌ PWA: Initialization failed:', error);
+        console.error("❌ PWA: Initialization failed:", error);
       }
     };
 
@@ -63,15 +62,19 @@ export function PWAProvider({ children }: PWAProviderProps) {
 
   return (
     <>
-          <Suspense fallback={<SpinnerLoader
-                            title="Loading...."
-                            message="Please wait while we get yours space ready."
-                            />}>
-      {children}
-      <InstallPrompt />
-      <UpdatePrompt />
-      <OfflineIndicator />
-          </Suspense>
+      <Suspense
+        fallback={
+          <SpinnerLoader
+            title="Loading...."
+            message="Please wait while we get yours space ready."
+          />
+        }
+      >
+        {children}
+        <InstallPrompt />
+        <UpdatePrompt />
+        <OfflineIndicator />
+      </Suspense>
     </>
   );
 }
