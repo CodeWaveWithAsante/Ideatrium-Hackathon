@@ -52,7 +52,7 @@ export function AuthGuard({ children, fallback }: AuthGuardProps) {
             />
           </Link>
         </div>
-        <div className="w-full max-w-6xl 2xl:py-20">
+        <div className="w-full max-w-6xl py-12 2xl:py-20">
           {/* Hero Section */}
           <div className="text-center mb-16 animate-in fade-in duration-1000">
             <div className="flex items-center justify-center gap-4 mb-8 animate-in slide-in-from-top duration-700">
