@@ -29,7 +29,7 @@ const transformIdeaFromDB = (row: IdeaRow): Idea => ({
   quadrant: row.quadrant,
   status: row.status,
   createdAt: new Date(row.created_at as string),
-  updatedAt: new Date(row.updated_at),
+  updatedAt: new Date(row.updated_at as string),
 });
 
 // Transform database row to Task type
