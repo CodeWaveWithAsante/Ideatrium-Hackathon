@@ -64,7 +64,7 @@ export function AuthGuard({ children, fallback }: AuthGuardProps) {
               </div>
               
               <div className="text-left">
-                <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                <h1 className="text-4xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
                   Ideatrium
                 </h1>
                 <p className="text-xl md:text-2xl text-muted-foreground mt-2">
