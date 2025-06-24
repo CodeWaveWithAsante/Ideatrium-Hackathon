@@ -74,7 +74,7 @@ export function AuthGuard({ children, fallback }: AuthGuardProps) {
             </div>
             
             <div className="max-w-3xl mx-auto space-y-6 animate-in slide-in-from-bottom duration-700 delay-200">
-              <h2 className="text-2xl md:text-4xl font-bold text-foreground">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
                 Your personal idea management platform
               </h2>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
