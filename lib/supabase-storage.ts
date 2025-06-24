@@ -24,7 +24,7 @@ const transformIdeaFromDB = (row: IdeaRow): Idea => ({
   title: row.title,
   description: row.description || undefined,
   tags: row.tags || [],
-  impact: row.impact,
+  impact: row.impact as number,
   effort: row.effort,
   quadrant: row.quadrant,
   status: row.status,
