@@ -32,12 +32,12 @@ class AIService {
     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
   constructor() {
-    const key = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-    if (!key) {
-      throw new Error(
-        "Gemini API key not found. Please set GEMINI_API_KEY in your environment variables."
-      );
-    }
+    const key = process.env.NEXT_PUBLIC_GEMINI_API_KEY!;
+    // if (!key) {
+    //   throw new Error(
+    //     "Gemini API key not found. Please set GEMINI_API_KEY in your environment variables."
+    //   );
+    // }
     this.apiKey = key;
   }
 
