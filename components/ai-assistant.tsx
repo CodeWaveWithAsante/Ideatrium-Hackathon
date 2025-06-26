@@ -1,34 +1,36 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { toast } from 'sonner';
-import { 
-  Brain, 
-  Lightbulb, 
-  Target, 
-  TrendingUp, 
-  Zap, 
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
+import {
+  Brain,
+  Lightbulb,
+  Target,
+  TrendingUp,
+  Zap,
   CheckCircle2,
   AlertTriangle,
   Loader2,
   Sparkles,
   BarChart3,
   ListChecks,
-  ExternalLink
-} from 'lucide-react';
-import { Idea } from '@/lib/types';
-import { aiService } from '@/lib/ai-service';
+  ExternalLink,
+} from "lucide-react";
+import { Idea } from "@/lib/types";
+import { generateAISuggestions } from "@/lib/actions";
+import { aiService } from "@/lib/ai-service";
+// import { aiService } from '@/lib/ai-service';
 
 interface AIAssistantProps {
   idea: Idea;
-  onUpdateIdea: (updates: Partial<Omit<Idea, 'id' | 'createdAt'>>) => void;
+  onUpdateIdea: (updates: Partial<Omit<Idea, "id" | "createdAt">>) => void;
 }
 
 interface AISuggestion {
-  type: 'impact' | 'effort' | 'tags' | 'actionPlan' | 'proscons';
+  type: "impact" | "effort" | "tags" | "actionPlan" | "proscons";
   title: string;
   content: string | string[] | { pros: string[]; cons: string[] };
   confidence: number;
@@ -44,19 +46,20 @@ export function AIAssistant({ idea, onUpdateIdea }: AIAssistantProps) {
   const handleGenerateSuggestions = async () => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
+      // const newSuggestions = await generateAISuggestions(idea);
       const newSuggestions = await aiService.generateSuggestions(idea);
       setSuggestions(newSuggestions);
       setHasGenerated(true);
-      toast.success('AI suggestions generated!', {
-        description: 'Review the AI recommendations for your idea.',
+      toast.success("AI suggestions generated!", {
+        description: "Review the AI recommendations for your idea.",
       });
     } catch (error) {
-      console.error('Error generating AI suggestions:', error);
-      setError('Failed to generate AI suggestions. Please try again.');
-      toast.error('AI suggestions failed', {
-        description: 'Unable to generate suggestions. Using fallback analysis.',
+      console.error("Error generating AI suggestions:", error);
+      setError("Failed to generate AI suggestions. Please try again.");
+      toast.error("AI suggestions failed", {
+        description: "Unable to generate suggestions. Using fallback analysis.",
       });
     } finally {
       setIsLoading(false);
@@ -65,23 +68,23 @@ export function AIAssistant({ idea, onUpdateIdea }: AIAssistantProps) {
 
   const handleApplySuggestion = (suggestion: AISuggestion) => {
     switch (suggestion.type) {
-      case 'impact':
-        if (typeof suggestion.content === 'string') {
+      case "impact":
+        if (typeof suggestion.content === "string") {
           const impactMatch = suggestion.content.match(/(\d)/);
           if (impactMatch) {
             onUpdateIdea({ impact: parseInt(impactMatch[1]) });
-            toast.success('Impact score updated!', {
+            toast.success("Impact score updated!", {
               description: `Applied AI suggestion: ${impactMatch[1]}/5`,
             });
           }
         }
         break;
-      case 'effort':
-        if (typeof suggestion.content === 'string') {
+      case "effort":
+        if (typeof suggestion.content === "string") {
           const effortMatch = suggestion.content.match(/(\d)/);
           if (effortMatch) {
             onUpdateIdea({ effort: parseInt(effortMatch[1]) });
-            toast.success('Effort score updated!', {
+            toast.success("Effort score updated!", {
               description: `Applied AI suggestion: ${effortMatch[1]}/5`,
             });
           }
@@ -92,24 +95,34 @@ export function AIAssistant({ idea, onUpdateIdea }: AIAssistantProps) {
 
   const getSuggestionIcon = (type: string) => {
     switch (type) {
-      case 'impact': return TrendingUp;
-      case 'effort': return Zap;
-      case 'tags': return Target;
-      case 'actionPlan': return ListChecks;
-      case 'proscons': return BarChart3;
-      default: return Lightbulb;
+      case "impact":
+        return TrendingUp;
+      case "effort":
+        return Zap;
+      case "tags":
+        return Target;
+      case "actionPlan":
+        return ListChecks;
+      case "proscons":
+        return BarChart3;
+      default:
+        return Lightbulb;
     }
   };
 
   const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 0.9) return 'bg-green-500';
-    if (confidence >= 0.8) return 'bg-blue-500';
-    if (confidence >= 0.7) return 'bg-yellow-500';
-    return 'bg-gray-500';
+    if (confidence >= 0.9) return "bg-green-500";
+    if (confidence >= 0.8) return "bg-blue-500";
+    if (confidence >= 0.7) return "bg-yellow-500";
+    return "bg-gray-500";
   };
 
   const renderSuggestionContent = (suggestion: AISuggestion) => {
-    if (suggestion.type === 'proscons' && typeof suggestion.content === 'object' && 'pros' in suggestion.content) {
+    if (
+      suggestion.type === "proscons" &&
+      typeof suggestion.content === "object" &&
+      "pros" in suggestion.content
+    ) {
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -119,7 +132,10 @@ export function AIAssistant({ idea, onUpdateIdea }: AIAssistantProps) {
             </h6>
             <ul className="space-y-1">
               {suggestion.content.pros.map((pro, i) => (
-                <li key={i} className="text-sm text-green-600 dark:text-green-400 flex items-start gap-1">
+                <li
+                  key={i}
+                  className="text-sm text-green-600 dark:text-green-400 flex items-start gap-1"
+                >
                   <div className="w-1 h-1 rounded-full bg-green-500 mt-2 flex-shrink-0" />
                   {pro}
                 </li>
@@ -133,7 +149,10 @@ export function AIAssistant({ idea, onUpdateIdea }: AIAssistantProps) {
             </h6>
             <ul className="space-y-1">
               {suggestion.content.cons.map((con, i) => (
-                <li key={i} className="text-sm text-red-600 dark:text-red-400 flex items-start gap-1">
+                <li
+                  key={i}
+                  className="text-sm text-red-600 dark:text-red-400 flex items-start gap-1"
+                >
                   <div className="w-1 h-1 rounded-full bg-red-500 mt-2 flex-shrink-0" />
                   {con}
                 </li>
@@ -155,7 +174,7 @@ export function AIAssistant({ idea, onUpdateIdea }: AIAssistantProps) {
           ))}
         </ol>
       );
-    } else if (typeof suggestion.content === 'string') {
+    } else if (typeof suggestion.content === "string") {
       return (
         <p className="text-sm text-muted-foreground">{suggestion.content}</p>
       );
@@ -173,22 +192,26 @@ export function AIAssistant({ idea, onUpdateIdea }: AIAssistantProps) {
         <CardTitle className="flex items-center gap-2">
           <Brain className="h-5 w-5 text-purple-600" />
           AI Assistant
-          <Badge variant="secondary" className="bg-purple-100 text-purple-700 dark:bg-purple-800/50 dark:text-purple-300">
+          <Badge
+            variant="secondary"
+            className="bg-purple-100 text-purple-700 dark:bg-purple-800/50 dark:text-purple-300"
+          >
             <Sparkles className="h-3 w-3 mr-1" />
             Powered by Gemini
           </Badge>
         </CardTitle>
       </CardHeader>
-      
+
       <CardContent className="space-y-4">
         {!hasGenerated && !error && (
           <div className="text-center py-6">
             <Brain className="h-12 w-12 mx-auto mb-4 text-purple-400" />
             <h3 className="font-semibold mb-2">Get AI-Powered Insights</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Let AI analyze your idea and provide intelligent suggestions for impact, effort, and action plans.
+              Let AI analyze your idea and provide intelligent suggestions for
+              impact, effort, and action plans.
             </p>
-            <Button 
+            <Button
               onClick={handleGenerateSuggestions}
               disabled={isLoading}
               className="gap-2 bg-purple-600 hover:bg-purple-700"
@@ -211,10 +234,14 @@ export function AIAssistant({ idea, onUpdateIdea }: AIAssistantProps) {
         {error && (
           <div className="text-center py-6">
             <AlertTriangle className="h-12 w-12 mx-auto mb-4 text-red-400" />
-            <h3 className="font-semibold mb-2 text-red-700 dark:text-red-400">AI Service Unavailable</h3>
-            <p className="text-sm text-red-600 dark:text-red-400 mb-4">{error}</p>
+            <h3 className="font-semibold mb-2 text-red-700 dark:text-red-400">
+              AI Service Unavailable
+            </h3>
+            <p className="text-sm text-red-600 dark:text-red-400 mb-4">
+              {error}
+            </p>
             <div className="space-y-2">
-              <Button 
+              <Button
                 onClick={handleGenerateSuggestions}
                 variant="outline"
                 className="gap-2"
@@ -248,10 +275,12 @@ export function AIAssistant({ idea, onUpdateIdea }: AIAssistantProps) {
         {suggestions.length > 0 && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h4 className="font-semibold text-purple-800 dark:text-purple-200">AI Suggestions</h4>
-              <Button 
-                variant="outline" 
-                size="sm" 
+              <h4 className="font-semibold text-purple-800 dark:text-purple-200">
+                AI Suggestions
+              </h4>
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={handleGenerateSuggestions}
                 className="gap-2"
                 disabled={isLoading}
@@ -263,9 +292,12 @@ export function AIAssistant({ idea, onUpdateIdea }: AIAssistantProps) {
 
             {suggestions.map((suggestion, index) => {
               const Icon = getSuggestionIcon(suggestion.type);
-              
+
               return (
-                <Card key={index} className="bg-white/80 dark:bg-gray-800/80 border border-purple-200 dark:border-purple-700">
+                <Card
+                  key={index}
+                  className="bg-white/80 dark:bg-gray-800/80 border border-purple-200 dark:border-purple-700"
+                >
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-2">
@@ -274,14 +306,17 @@ export function AIAssistant({ idea, onUpdateIdea }: AIAssistantProps) {
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="flex items-center gap-1">
-                          <div 
-                            className={`w-2 h-2 rounded-full ${getConfidenceColor(suggestion.confidence)}`}
+                          <div
+                            className={`w-2 h-2 rounded-full ${getConfidenceColor(
+                              suggestion.confidence
+                            )}`}
                           />
                           <span className="text-xs text-muted-foreground">
                             {Math.round(suggestion.confidence * 100)}%
                           </span>
                         </div>
-                        {(suggestion.type === 'impact' || suggestion.type === 'effort') && (
+                        {(suggestion.type === "impact" ||
+                          suggestion.type === "effort") && (
                           <Button
                             variant="outline"
                             size="sm"

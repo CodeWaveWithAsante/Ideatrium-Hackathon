@@ -1,15 +1,20 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import { User, Session, AuthError } from '@supabase/supabase-js';
-import { supabase, isSupabaseConfigured } from './supabase';
-import { toast } from 'sonner';
+import { createContext, useContext, useEffect, useState } from "react";
+import { User, Session, AuthError } from "@supabase/supabase-js";
+import { toast } from "sonner";
+
+import { supabase, isSupabaseConfigured } from "./supabase";
 
 interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
-  signUp: (email: string, password: string, displayName?: string) => Promise<void>;
+  signUp: (
+    email: string,
+    password: string,
+    displayName?: string
+  ) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -28,7 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Check if Supabase is configured
     if (!isSupabaseConfigured()) {
-      console.warn('⚠️ Supabase is not properly configured');
+      console.warn("⚠️ Supabase is not properly configured");
       if (mounted) {
         setLoading(false);
         setInitialized(true);
@@ -39,15 +44,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Get initial session
     const getInitialSession = async () => {
       try {
-        const { data: { session }, error } = await supabase.auth.getSession();
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
         if (error) {
-          console.error('Error getting session:', error);
+          console.error("Error getting session:", error);
         } else if (mounted) {
           setSession(session);
           setUser(session?.user ?? null);
         }
       } catch (error) {
-        console.error('Unexpected error getting session:', error);
+        console.error("Unexpected error getting session:", error);
       } finally {
         if (mounted) {
           setLoading(false);
@@ -59,31 +67,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     getInitialSession();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (!mounted || !initialized) return;
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (!mounted || !initialized) return;
 
-        console.log('Auth state change:', event, session?.user?.id);
+      console.log("Auth state change:", event, session?.user?.id);
 
-        setSession(session);
-        setUser(session?.user ?? null);
-        setLoading(false);
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
 
-        // Only show toasts after initial load
-        if (event === 'SIGNED_IN' && session?.user) {
-          toast.success('Welcome back!', {
-            description: 'You have been successfully signed in.',
-          });
-        } else if (event === 'SIGNED_OUT') {
-          toast.info('Signed out', {
-            description: 'You have been signed out successfully.',
-          });
-        } else if (event === 'TOKEN_REFRESHED') {
-          // Don't show toast for token refresh
-          console.log('Token refreshed silently');
-        }
+      // Only show toasts after initial load
+      if (event === "SIGNED_IN" && session?.user) {
+        toast.success("Welcome back!", {
+          description: "You have been successfully signed in.",
+        });
+      } else if (event === "SIGNED_OUT") {
+        toast.info("Signed out", {
+          description: "You have been signed out successfully.",
+        });
+      } else if (event === "TOKEN_REFRESHED") {
+        // Don't show toast for token refresh
+        console.log("Token refreshed silently");
       }
-    );
+    });
 
     return () => {
       mounted = false;
@@ -91,9 +99,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, [initialized]);
 
-  const signUp = async (email: string, password: string, displayName?: string) => {
+  const signUp = async (
+    email: string,
+    password: string,
+    displayName?: string
+  ) => {
     if (!isSupabaseConfigured()) {
-      throw new Error('Authentication is not available. Please check your configuration.');
+      throw new Error(
+        "Authentication is not available. Please check your configuration."
+      );
     }
 
     try {
@@ -109,23 +123,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (error) {
+        console.log(error);
         throw error;
       }
 
       // Always show email verification message for sign up
-      toast.info('Check your email', {
-        description: 'We sent you a confirmation link to complete your registration.',
+      toast.info("Check your email", {
+        description:
+          "We sent you a confirmation link to complete your registration.",
         duration: 6000,
       });
     } catch (error: any) {
-      console.error('Sign up error:', error);
-      throw new Error(error.message || 'Failed to create account');
+      console.error("Sign up error:", error);
+      throw new Error(error.message || "Failed to create account");
     }
   };
 
   const signIn = async (email: string, password: string) => {
     if (!isSupabaseConfigured()) {
-      throw new Error('Authentication is not available. Please check your configuration.');
+      throw new Error(
+        "Authentication is not available. Please check your configuration."
+      );
     }
 
     try {
@@ -138,14 +156,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw error;
       }
     } catch (error: any) {
-      console.error('Sign in error:', error);
-      throw new Error(error.message || 'Failed to sign in');
+      console.error("Sign in error:", error);
+      throw new Error(error.message || "Failed to sign in");
     }
   };
 
   const signOut = async () => {
     if (!isSupabaseConfigured()) {
-      throw new Error('Authentication is not available. Please check your configuration.');
+      throw new Error(
+        "Authentication is not available. Please check your configuration."
+      );
     }
 
     try {
@@ -154,14 +174,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw error;
       }
     } catch (error: any) {
-      console.error('Sign out error:', error);
-      throw new Error(error.message || 'Failed to sign out');
+      console.error("Sign out error:", error);
+      throw new Error(error.message || "Failed to sign out");
     }
   };
 
   const resetPassword = async (email: string) => {
     if (!isSupabaseConfigured()) {
-      throw new Error('Authentication is not available. Please check your configuration.');
+      throw new Error(
+        "Authentication is not available. Please check your configuration."
+      );
     }
 
     try {
@@ -173,13 +195,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw error;
       }
 
-      toast.success('Password reset email sent', {
-        description: 'Check your email for the password reset link.',
+      toast.success("Password reset email sent", {
+        description: "Check your email for the password reset link.",
         duration: 6000,
       });
     } catch (error: any) {
-      console.error('Reset password error:', error);
-      throw new Error(error.message || 'Failed to send reset email');
+      console.error("Reset password error:", error);
+      throw new Error(error.message || "Failed to send reset email");
     }
   };
 
@@ -193,17 +215,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     resetPassword,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }

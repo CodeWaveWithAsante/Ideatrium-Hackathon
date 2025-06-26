@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { 
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -18,16 +18,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Plus, Lightbulb, Sparkles } from 'lucide-react';
-import { TagInput } from './tag-input';
-import { PrioritySlider } from './priority-slider';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { 
-  ideaSchema,
-  type IdeaFormData,
-} from '@/lib/validations';
+} from "@/components/ui/form";
+import { Plus, Lightbulb, Sparkles } from "lucide-react";
+import { TagInput } from "./tag-input";
+import { PrioritySlider } from "./priority-slider";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ideaSchema, type IdeaFormData } from "@/lib/validations";
 
 interface IdeaCaptureModalProps {
   open: boolean;
@@ -35,18 +32,18 @@ interface IdeaCaptureModalProps {
   onSubmit: (data: IdeaFormData) => void;
 }
 
-export function IdeaCaptureModal({ 
-  open, 
-  onOpenChange, 
-  onSubmit 
+export function IdeaCaptureModal({
+  open,
+  onOpenChange,
+  onSubmit,
 }: IdeaCaptureModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<IdeaFormData>({
     resolver: zodResolver(ideaSchema),
     defaultValues: {
-      title: '',
-      description: '',
+      title: "",
+      description: "",
       tags: [],
       impact: 3,
       effort: 3,
@@ -73,8 +70,8 @@ export function IdeaCaptureModal({
     onOpenChange(newOpen);
   };
 
-  const watchedTitle = form.watch('title');
-  const watchedDescription = form.watch('description');
+  const watchedTitle = form.watch("title");
+  const watchedDescription = form.watch("description");
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -83,39 +80,50 @@ export function IdeaCaptureModal({
         <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 p-8 text-white">
           <div className="absolute inset-0 bg-black/10"></div>
           <DialogHeader className="relative">
-            <div className="flex items-center gap-3 mb-2">
+            <div className="flex items-start md:items-center gap-3 mb-2">
               <div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm">
                 <Lightbulb className="h-6 w-6" />
               </div>
               <div>
-                <DialogTitle className="text-2xl font-bold">Capture Your Idea</DialogTitle>
-                <DialogDescription className="text-blue-100 mt-1">
-                  Transform your brilliant idea into an actionable item with priority assessment
+                <DialogTitle className="text-2xl font-bold text-left">
+                  Capture Your Idea
+                </DialogTitle>
+                <DialogDescription className="text-blue-100 mt-1 text-left md:text-center">
+                  Transform your brilliant idea into an actionable item with
+                  priority assessment
                 </DialogDescription>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-sm text-blue-100">
+            <div className="flex md:items-center gap-2 text-sm text-blue-100">
               <Sparkles className="h-4 w-4" />
               <span>Every great achievement starts with a single idea</span>
             </div>
           </DialogHeader>
         </div>
-        
-        <div className="flex-1 overflow-y-auto p-8" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+
+        <div
+          className="flex-1 overflow-y-auto p-8"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
           <style jsx>{`
             div::-webkit-scrollbar {
               display: none;
             }
           `}</style>
-          
+
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+            <form
+              onSubmit={form.handleSubmit(handleSubmit)}
+              className="space-y-8"
+            >
               <FormField
                 control={form.control}
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-base font-semibold">Idea Title *</FormLabel>
+                    <FormLabel className="text-base font-semibold">
+                      Idea Title *
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="What's your brilliant idea?"
@@ -135,13 +143,15 @@ export function IdeaCaptureModal({
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-base font-semibold">Description</FormLabel>
+                    <FormLabel className="text-base font-semibold">
+                      Description
+                    </FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Add more details about your idea... What problem does it solve? What makes it unique?"
@@ -188,9 +198,10 @@ export function IdeaCaptureModal({
                   Priority Assessment
                 </h4>
                 <p className="text-sm text-muted-foreground mb-6">
-                  Help prioritize your idea by rating its potential impact and required effort
+                  Help prioritize your idea by rating its potential impact and
+                  required effort
                 </p>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-">
                   <FormField
                     control={form.control}
@@ -201,9 +212,11 @@ export function IdeaCaptureModal({
                           <div>
                             <PrioritySlider
                               impact={field.value}
-                              effort={form.watch('effort')}
+                              effort={form.watch("effort")}
                               onImpactChange={field.onChange}
-                              onEffortChange={(effort) => form.setValue('effort', effort)}
+                              onEffortChange={(effort) =>
+                                form.setValue("effort", effort)
+                              }
                               disabled={isSubmitting}
                             />
                           </div>
@@ -214,11 +227,11 @@ export function IdeaCaptureModal({
                   />
                 </div>
               </div>
-              
+
               <div className="flex gap-4 pt-6 border-t">
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting || !form.watch('title')?.trim()}
+                <Button
+                  type="submit"
+                  disabled={isSubmitting || !form.watch("title")?.trim()}
                   className="flex-1 h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium"
                 >
                   {isSubmitting ? (
@@ -233,9 +246,9 @@ export function IdeaCaptureModal({
                     </>
                   )}
                 </Button>
-                <Button 
-                  type="button" 
-                  variant="outline" 
+                <Button
+                  type="button"
+                  variant="outline"
                   onClick={() => handleOpenChange(false)}
                   className="px-8 h-12"
                   disabled={isSubmitting}
@@ -243,9 +256,10 @@ export function IdeaCaptureModal({
                   Cancel
                 </Button>
               </div>
-              
+
               <div className="text-xs text-muted-foreground text-center pb-4 border-t pt-4">
-                💡 <strong>Pro tip:</strong> Press Ctrl/Cmd + Enter to quickly save your idea
+                💡 <strong>Pro tip:</strong> Press Ctrl/Cmd + Enter to quickly
+                save your idea
               </div>
             </form>
           </Form>

@@ -1,19 +1,27 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { Archive, Plus, Menu, User, LogOut, Settings } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/theme-toggle";
+import {
+  Archive,
+  Plus,
+  Menu,
+  User,
+  LogOut,
+  Settings,
+  Lightbulb,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useAuth } from '@/lib/auth-context';
-import Link from 'next/link';
-import Image from 'next/image';
+} from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/lib/auth-context";
+import Link from "next/link";
+import Image from "next/image";
 
 interface HeaderProps {
   activeCount: number;
@@ -23,12 +31,12 @@ interface HeaderProps {
   onNewIdea: () => void;
 }
 
-export function Header({ 
-  activeCount, 
-  archivedCount, 
-  showArchived, 
+export function Header({
+  activeCount,
+  archivedCount,
+  showArchived,
   onToggleArchived,
-  onNewIdea 
+  onNewIdea,
 }: HeaderProps) {
   const { user, signOut } = useAuth();
 
@@ -36,7 +44,7 @@ export function Header({
     try {
       await signOut();
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error("Error signing out:", error);
     }
   };
 
@@ -50,13 +58,7 @@ export function Header({
               <div className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
                 <div className="relative p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-                  <Image 
-                    src="/logo.svg" 
-                    alt="Ideatrium Logo" 
-                    width={24} 
-                    height={24} 
-                    className="text-white"
-                  />
+                  <Lightbulb className="h-6 xl:h-8 w-6 xl:w-8 text-white" />
                 </div>
               </div>
               <div className="min-w-0">
@@ -76,51 +78,45 @@ export function Header({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => !showArchived && onToggleArchived()}
+                onClick={() => showArchived && onToggleArchived()}
                 className={`gap-2 h-9 transition-all duration-200 ${
-                  !showArchived 
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-md' 
-                    : 'text-foreground hover:bg-slate-100 dark:hover:bg-slate-800'
+                  !showArchived
+                    ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-md"
+                    : "text-foreground hover:bg-slate-100 dark:hover:bg-slate-800"
                 }`}
               >
-                <Image 
-                  src="/logo.svg" 
-                  alt="Active Ideas" 
-                  width={16} 
-                  height={16} 
-                  className={!showArchived ? "brightness-0 invert" : ""}
-                />
+                <Lightbulb size={20} className="h-4 w-4" />
                 Active
-                <Badge 
-                  variant="secondary" 
+                <Badge
+                  variant="secondary"
                   className={`ml-1 ${
-                    !showArchived 
-                      ? 'bg-white bg-opacity-20 text-white border-0' 
-                      : 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300'
+                    !showArchived
+                      ? "bg-white bg-opacity-20 text-white border-0"
+                      : "bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300"
                   }`}
                 >
                   {activeCount}
                 </Badge>
               </Button>
-              
+
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => showArchived && onToggleArchived()}
+                onClick={() => !showArchived && onToggleArchived()}
                 className={`gap-2 h-9 transition-all duration-200 ${
-                  showArchived 
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-md' 
-                    : 'text-foreground hover:bg-slate-100 dark:hover:bg-slate-800'
+                  showArchived
+                    ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-md"
+                    : "text-foreground hover:bg-slate-100 dark:hover:bg-slate-800"
                 }`}
               >
                 <Archive className="h-4 w-4" />
                 Archived
-                <Badge 
-                  variant="secondary" 
+                <Badge
+                  variant="secondary"
                   className={`ml-1 ${
-                    showArchived 
-                      ? 'bg-white bg-opacity-20 text-white border-0' 
-                      : 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300'
+                    showArchived
+                      ? "bg-white bg-opacity-20 text-white border-0"
+                      : "bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300"
                   }`}
                 >
                   {archivedCount}
@@ -137,14 +133,23 @@ export function Header({
             {/* User Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-2 bg-white bg-opacity-50 dark:bg-transparent backdrop-blur-sm border-white border-opacity-20 hover:bg-white hover:bg-opacity-70 transition-all duration-200">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="gap-2 bg-white bg-opacity-50 dark:bg-transparent backdrop-blur-sm border-white border-opacity-20 hover:bg-white hover:bg-opacity-70 transition-all duration-200"
+                >
                   <User className="h-4 w-4" />
                   <span className="hidden sm:inline">
-                    {user?.user_metadata?.display_name?.split(" ")[0] || user?.email?.split('@')[0] || 'User'}
+                    {user?.user_metadata?.display_name?.split(" ")[0] ||
+                      user?.email?.split("@")[0] ||
+                      "User"}
                   </span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-white bg-opacity-95 dark:bg-slate-900 dark:bg-opacity-95 backdrop-blur-xl border-white border-opacity-20 dark:border-slate-700 dark:border-opacity-50">
+              <DropdownMenuContent
+                align="end"
+                className="w-56 bg-white bg-opacity-95 dark:bg-slate-900 dark:bg-opacity-95 backdrop-blur-xl border-white border-opacity-20 dark:border-slate-700 dark:border-opacity-50"
+              >
                 <div className="px-2 py-1.5 text-sm text-muted-foreground">
                   Signed in as
                 </div>
@@ -159,7 +164,10 @@ export function Header({
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleSignOut} className="gap-2 text-red-600 focus:text-red-600">
+                <DropdownMenuItem
+                  onClick={handleSignOut}
+                  className="gap-2 text-red-600 focus:text-red-600"
+                >
                   <LogOut className="h-4 w-4" />
                   Sign Out
                 </DropdownMenuItem>
@@ -168,8 +176,8 @@ export function Header({
 
             <div className="h-6 w-px bg-border opacity-50" />
 
-            <Button 
-              onClick={onNewIdea} 
+            <Button
+              onClick={onNewIdea}
               className="gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium px-6 hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               <Plus className="h-4 w-4" />
@@ -180,11 +188,11 @@ export function Header({
           {/* Mobile Navigation */}
           <div className="flex md:hidden items-center gap-2">
             <ThemeToggle />
-            
+
             {/* New Idea Button - Always visible on mobile */}
-            <Button 
-              onClick={onNewIdea} 
-              size="sm" 
+            <Button
+              onClick={onNewIdea}
+              size="sm"
               className="gap-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white hover:scale-105 transition-all duration-200"
             >
               <Plus className="h-4 w-4" />
@@ -194,19 +202,26 @@ export function Header({
             {/* Mobile Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-1 bg-white bg-opacity-50 backdrop-blur-sm border-white border-opacity-20 hover:bg-white hover:bg-opacity-70 transition-all duration-200">
+                <Button variant="outline" size="sm">
                   <Menu className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 bg-white bg-opacity-95 dark:bg-slate-900 dark:bg-opacity-95 backdrop-blur-xl border-white border-opacity-20 dark:border-slate-700 dark:border-opacity-50">
-                <DropdownMenuItem 
+              <DropdownMenuContent
+                align="end"
+                className="w-48 bg-white bg-opacity-95 dark:bg-slate-900 dark:bg-opacity-95 backdrop-blur-xl border-white border-opacity-20 dark:border-slate-700 dark:border-opacity-50"
+              >
+                <DropdownMenuItem
                   onClick={() => !showArchived && onToggleArchived()}
-                  className={`gap-2 ${!showArchived ? 'bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20' : ''}`}
+                  className={`gap-2 ${
+                    !showArchived
+                      ? "bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20"
+                      : ""
+                  }`}
                 >
-                  <Image 
-                    src="/logo.svg" 
-                    alt="Active Ideas" 
-                    width={16} 
+                  <Image
+                    src="/logo.svg"
+                    alt="Active Ideas"
+                    width={16}
                     height={16}
                   />
                   <span className="flex-1">Active Ideas</span>
@@ -214,10 +229,14 @@ export function Header({
                     {activeCount}
                   </Badge>
                 </DropdownMenuItem>
-                
-                <DropdownMenuItem 
+
+                <DropdownMenuItem
                   onClick={() => showArchived && onToggleArchived()}
-                  className={`gap-2 ${showArchived ? 'bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20' : ''}`}
+                  className={`gap-2 ${
+                    showArchived
+                      ? "bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20"
+                      : ""
+                  }`}
                 >
                   <Archive className="h-4 w-4" />
                   <span className="flex-1">Archived Ideas</span>
@@ -225,9 +244,9 @@ export function Header({
                     {archivedCount}
                   </Badge>
                 </DropdownMenuItem>
-                
+
                 <DropdownMenuSeparator />
-                
+
                 <DropdownMenuItem onClick={onNewIdea} className="gap-2">
                   <Plus className="h-4 w-4" />
                   New Idea
@@ -242,7 +261,10 @@ export function Header({
                   </Link>
                 </DropdownMenuItem>
 
-                <DropdownMenuItem onClick={handleSignOut} className="gap-2 text-red-600 focus:text-red-600">
+                <DropdownMenuItem
+                  onClick={handleSignOut}
+                  className="gap-2 text-red-600 focus:text-red-600"
+                >
                   <LogOut className="h-4 w-4" />
                   Sign Out
                 </DropdownMenuItem>
